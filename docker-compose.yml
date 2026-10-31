@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Base de Datos PostgreSQL 16
+  postgres:
+    image: postgres:16-alpine
+    container_name: vsideg_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: vsideg_modern
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # API Backend Node.js + TypeScript
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: vsideg_api
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 4000
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: postgrespassword
+      PG_DATABASE: vsideg_modern
+    ports:
+      - "4000:4000"
+
+  # Frontend Web React + Vite
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: vsideg_web
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:

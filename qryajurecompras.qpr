@@ -1,0 +1,16 @@
+SELECT Peds0517.fechaini, Peds0517.fechafin, Peds0517.webped,;
+  Peds0517.idclien, Peds0517.razsoc, Peds0517.cedven, Peds0517.nomven,;
+  Peds0517.codpro, Peds0517.prepro, Peds0517.canven, Peds0517.cancam,;
+  Peds0517.tipcam, Peds0517.subtotal, Peds0517.total, Peds0517.porciva,;
+  Peds0517.descvent, Peds0517.preori, Peds0517.nomcon, Peds0517.codnope,;
+  Peds0517.nonope, Peds0517.nerror, Peds0517.nomarc, Peds0517.procesado,;
+  Peds0517.sucursal, Maenegoc.codred, Maenegoc.coddsto, Maenegoc.codzona,;
+  Maenegoc.codloca, Maenegoc.ideclien, Maenegoc.codtineg, Maenegoc.nomnego,;
+  Maenegoc.dirnego, Maenegoc.telnego, Maenegoc.codnilsen,;
+  Maenegoc.feinnego, Maenegoc.coddepto, Maenegoc.codciuda,;
+  Maenegoc.barrionego, Maenegoc.estado, Maenegoc.codcanal,;
+  Maenegoc.codsubca, Maeliscl.codlipr;
+ FROM peds0517 INNER JOIN vsideg!maenegoc ;
+   ON  Peds0517.sucursal = Maenegoc.negocio_id ;
+   LEFT JOIN vsideg!maeliscl ;
+   ON  Maenegoc.ideclien = Maeliscl.ideclien

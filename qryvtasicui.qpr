@@ -1,0 +1,11 @@
+SELECT Metavtasnew.cod_prov, Metavtasnew.cod_linea,;
+  Metavtasnew.cod_refe, Metavtasnew.referencia,;
+  SUM(Metavtasnew.doccant) AS cantidad,;
+  SUM(Metavtasnew.vlrtotal) AS total, SUM(Metavtasnew.vlriva) AS iva,;
+  SUM(Metavtasnew.baseicui) AS vlrbasaicui,;
+  SUM(Metavtasnew.vlricui) AS vlricui;
+ FROM metavtasnew;
+ GROUP BY Metavtasnew.cod_prov, Metavtasnew.cod_linea,;
+  Metavtasnew.cod_refe;
+ ORDER BY Metavtasnew.cod_prov, Metavtasnew.cod_linea,;
+  Metavtasnew.cod_refe

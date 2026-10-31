@@ -1,0 +1,10 @@
+SELECT Maeciuda.ciudad + "(" + Maeciuda.nomdepto + ")" AS Ciudad,;
+  COUNT(Maenegoc.negocio_id) AS Cantidad;
+ FROM  vsideg!maeclien INNER JOIN vsideg!maenegoc;
+   ON  Maeclien.ideclien = Maenegoc.ideclien;
+    INNER JOIN vsideg!maeciuda ;
+   ON  Maenegoc.coddepto+Maenegoc.codciuda = Maeciuda.coddepto+Maeciuda.codciuda ;
+   WHERE Maenegoc.codred == "001" ;
+   AND Maenegoc.estado == "A" ;
+ GROUP BY Maeciuda.coddepto, Maeciuda.codciuda;
+ ORDER BY 1
